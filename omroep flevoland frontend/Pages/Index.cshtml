@@ -1,0 +1,45 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "home chat";
+}
+
+<div class="text-center">
+    <flowise-fullchatbot></flowise-fullchatbot>
+</div>
+<script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    Chatbot.initFull({
+        chatflowid: "fe443d55-fdde-4c6d-88f6-1c40d14c49e3",
+        apiHost: "http://localhost:3000",
+        theme: {
+            button: {
+                backgroundColor: '#bf2133',
+            },
+            chatWindow: {
+                welcomeMessage: "hallo, waar kan ik je mee helpen?",
+                backgroundColor: "floralWhite",
+                height: 500,
+                width: 700,
+                fontSize: 16,
+                poweredByTextColor: "#303235",
+                botMessage: {
+                    backgroundColor: "#ffffff",
+                    textColor: "#303235",
+                    showAvatar: false
+                },
+                userMessage: {
+                    backgroundColor: "#ffffff",
+                    textColor: "#303235",
+                    showAvatar: false,
+                },
+                textInput: {
+                    placeholder: "Type your question",
+                    backgroundColor: "#ffffff",
+                    textColor: "#303235",
+                    sendButtonColor: "#bf2133",
+                }
+            }
+        }
+    })
+</script>
