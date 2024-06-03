@@ -4,7 +4,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <RootNamespace>omroep_flevoland_frontend</RootNamespace>
+    <RootNamespace>MVC_omroep_flevoland_chat_frontend</RootNamespace>
   </PropertyGroup>
 
 </Project>
