@@ -6,36 +6,37 @@
     <flowise-fullchatbot></flowise-fullchatbot>
 </div>
 <script type="module">
-    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    import Chatbot from 'https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js'
+
     Chatbot.initFull({
-        chatflowid: "fe443d55-fdde-4c6d-88f6-1c40d14c49e3",
+        chatflowid: 'fe443d55-fdde-4c6d-88f6-1c40d14c49e3',
         apiHost: "http://localhost:3000",
         theme: {
             button: {
                 backgroundColor: '#bf2133',
             },
             chatWindow: {
-                welcomeMessage: "hallo, waar kan ik je mee helpen?",
-                backgroundColor: "floralWhite",
-                height: 500,
-                width: 700,
+                welcomeMessage: 'hallo, waar kan ik je mee helpen?',
+                backgroundColor: 'floralWhite',
+                height: (screen.height / 1.5),
+                width: (screen.width / 1.5),
                 fontSize: 16,
-                poweredByTextColor: "#303235",
+                poweredByTextColor: '#303235',
                 botMessage: {
-                    backgroundColor: "#f1f1f1",
-                    textColor: "#303235",
+                    backgroundColor: 'floralwhite',
+                    textColor: '#303235',
                     showAvatar: false
                 },
                 userMessage: {
-                    backgroundColor: "#f1d6d6",
-                    textColor: "#303235",
+                    backgroundColor: '#f9dbdb',
+                    textColor: '#303235',
                     showAvatar: false,
                 },
                 textInput: {
-                    placeholder: "Type your question",
-                    backgroundColor: "#ffffff",
-                    textColor: "#303235",
-                    sendButtonColor: "#bf2133",
+                    placeholder: 'Type your question',
+                    backgroundColor: '#ffffff',
+                    textColor: '#303235',
+                    sendButtonColor: '#bf2133',
                 }
             }
         }
