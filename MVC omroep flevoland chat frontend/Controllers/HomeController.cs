@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC_omroep_flevoland_chat_frontend.Models;
 using System.Diagnostics;
+using System.Net.Http.Json;
 using System.Security.Cryptography;
 
 namespace MVC_omroep_flevoland_chat_frontend.Controllers
@@ -14,8 +15,19 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(Object file)
+        {
+            HttpClient client = new HttpClient();
+            FileUpsert upsert = new FileUpsert(file,4);
+            client.PostAsync($"http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3",);
+
             return View();
         }
 
