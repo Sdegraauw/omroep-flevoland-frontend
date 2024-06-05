@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC_omroep_flevoland_chat_frontend.Models;
+using NuGet.Protocol;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Net.Http.Json;
 using System.Security.Cryptography;
@@ -22,11 +24,13 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(Object file)
+        public IActionResult Index(IFormFile file)
         {
+            Console.WriteLine(file.ToJson());
             HttpClient client = new HttpClient();
-            FileUpsert upsert = new FileUpsert(file,4);
-            client.PostAsync($"http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3",);
+            StreamContent stream = new StreamContent(file.OpenReadStream());
+            Console.WriteLine(stream.ReadAsStream().ToString());
+            client.PostAsync($"http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3",stream);
 
             return View();
         }
