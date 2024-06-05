@@ -26,11 +26,11 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
         [HttpPost]
         public IActionResult Index(IFormFile file)
         {
-            Console.WriteLine(file.ToJson());
             HttpClient client = new HttpClient();
             StreamContent stream = new StreamContent(file.OpenReadStream());
-            Console.WriteLine(stream.ReadAsStream().ToString());
-            client.PostAsync($"http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3",stream);
+            Console.WriteLine(stream.ReadAsStringAsync().Result);
+            string Json = "{ file:" + stream.ReadAsStringAsync().Result + "}";
+            client.PostAsJsonAsync($"http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3",Json);
 
             return View();
         }
