@@ -24,13 +24,24 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(IFormFile file)
+        public async Task<IActionResult> Index(IFormFile file)
         {
+
             HttpClient client = new HttpClient();
-            StreamContent stream = new StreamContent(file.OpenReadStream());
-            Console.WriteLine(stream.ReadAsStringAsync().Result);
-            string Json = "{ file:" + stream.ReadAsStringAsync().Result + "}";
-            client.PostAsJsonAsync($"http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3",Json);
+            using (var content = new MultipartFormDataContent())
+            {
+                byte[] fileBytes = new byte[file.OpenReadStream().Length];
+                await file.OpenReadStream().ReadAsync(fileBytes, 0, (int)file.OpenReadStream().Length);
+                ByteArrayContent bytes = new ByteArrayContent(fileBytes);
+
+                content.Add(bytes, "files", file.FileName);
+                Console.WriteLine(await content.ReadAsStringAsync());
+
+                var response = await client.PostAsync("http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3", content);
+                var responseString = await response.Content.ReadAsStringAsync();
+
+                Console.WriteLine(responseString);
+            }
 
             return View();
         }
