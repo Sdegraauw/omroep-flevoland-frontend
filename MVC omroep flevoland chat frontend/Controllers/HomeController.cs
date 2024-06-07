@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MVC_omroep_flevoland_chat_frontend.Models;
 using NuGet.Protocol;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Net.Http.Json;
-using System.Security.Cryptography;
+using System.Net.Http;
 
 namespace MVC_omroep_flevoland_chat_frontend.Controllers
 {
@@ -26,22 +24,22 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile file)
         {
+            if (file == null) { return View(); }
 
+            //setting up Request objects
             HttpClient client = new HttpClient();
-            using (var content = new MultipartFormDataContent())
-            {
-                byte[] fileBytes = new byte[file.OpenReadStream().Length];
-                await file.OpenReadStream().ReadAsync(fileBytes, 0, (int)file.OpenReadStream().Length);
-                ByteArrayContent bytes = new ByteArrayContent(fileBytes);
+            MultipartFormDataContent formContent = new MultipartFormDataContent("NKdKd9Yk");
 
-                content.Add(bytes, "files", file.FileName);
-                Console.WriteLine(await content.ReadAsStringAsync());
+            //Adding content
+            formContent.Headers.ContentType.MediaType = "multipart/form-data";
+            StringContent content = new StringContent(file.ToJson());
+            formContent.Add(content, "files", file.FileName);
+            Console.WriteLine(formContent.ToArray());
 
-                var response = await client.PostAsync("http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3", content);
-                var responseString = await response.Content.ReadAsStringAsync();
-
-                Console.WriteLine(responseString);
-            }
+            //API call
+            HttpResponseMessage response = await client.PostAsync("http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3", formContent);
+            string responseString = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseString);
 
             return View();
         }
