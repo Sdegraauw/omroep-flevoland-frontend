@@ -25,16 +25,15 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
         public async Task<IActionResult> Index(IFormFile file)
         {
             if (file == null) { return View(); }
-
             //setting up Request objects
             HttpClient client = new HttpClient();
             MultipartFormDataContent formContent = new MultipartFormDataContent("NKdKd9Yk");
+            Stream stream = file.OpenReadStream();
 
             //Adding content
             formContent.Headers.ContentType.MediaType = "multipart/form-data";
-            StringContent content = new StringContent(file.ToJson());
+            StreamContent content = new StreamContent(stream);
             formContent.Add(content, "files", file.FileName);
-            Console.WriteLine(formContent.ToArray());
 
             //API call
             HttpResponseMessage response = await client.PostAsync("http://localhost:3000/api/v1/vector/upsert/fe443d55-fdde-4c6d-88f6-1c40d14c49e3", formContent);
