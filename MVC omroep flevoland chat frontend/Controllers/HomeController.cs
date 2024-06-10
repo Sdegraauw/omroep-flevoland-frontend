@@ -24,7 +24,11 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(IFormFile file)
         {
-            if (file == null) { return View(); }
+            if (file == null) 
+            { 
+                return View(); 
+            }
+
             //setting up Request objects
             HttpClient client = new HttpClient();
             MultipartFormDataContent formContent = new MultipartFormDataContent("NKdKd9Yk");
