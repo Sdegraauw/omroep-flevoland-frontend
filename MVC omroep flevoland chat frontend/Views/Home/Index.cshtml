@@ -22,7 +22,7 @@
             formData.append("files", document.getElementById('fileUpload').files[0]);
             formData.append("returnSourceDocuments", true);
 
-            async function FileUpload(formData) {
+            function FileUpload(formData) {
                 const response = await fetch(
                     'http://localhost:3000/api/v1/vector/upsert/f8096bd3-3979-434c-9f8f-efb88e601fc1',
                     {
@@ -36,28 +36,6 @@
 
 
             FileUpload(formData).then((response) => {
-                console.log(response);
-            });
-        
-
-        document.getElementById('uploadButton').addEventListener('click', function () {
-            let formData = new FormData();
-            formData.append("files", document.getElementById('fileUpload').files[0])
-            formData.append("temperature", 1)
-
-            async function query(formData) {
-                const response = await fetch(
-                    "http://localhost:3000/api/v1/prediction/f8096bd3-3979-434c-9f8f-efb88e601fc1",
-                    {
-                        method: "POST",
-                        body: formData
-                    }
-                );
-                const result = await response.json();
-                return result;
-            }
-
-            query(formData).then((response) => {
                 console.log(response);
             });
         });
