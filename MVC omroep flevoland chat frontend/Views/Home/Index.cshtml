@@ -2,7 +2,9 @@
     ViewData["Title"] = "Home Chat";
 }
 
-<div class="text-center">
+@model API
+
+<div>
     <flowise-fullchatbot></flowise-fullchatbot>
 </div>
 <head>
@@ -68,10 +70,8 @@
     import Chatbot from 'https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js'
 
     Chatbot.initFull({
-        chatflowid: 'f8096bd3-3979-434c-9f8f-efb88e601fc1',
-        // chatflowid: 'fe443d55-fdde-4c6d-88f6-1c40d14c49e3',
-        apiHost: "http://localhost:3000",
-
+        chatflowid: '@Model.FlowID',
+        apiHost: '@Model.BaseUrl',
         theme: {
             button: {
                 backgroundColor: '#bf2133',
