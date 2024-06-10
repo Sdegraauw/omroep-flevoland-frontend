@@ -5,12 +5,73 @@
 <div class="text-center">
     <flowise-fullchatbot></flowise-fullchatbot>
 </div>
+<head>
+    <title>file Searcher.</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <form id="fileUploadForm" method="post" enctype="multipart/form-data">
+        <input type="file" id="fileUpload" name="fileUpload" accept=".pdf" />
+        <input type="button" id="uploadButton" value="Upload" />
+    </form>
+    <script>
+        // document.getElementById('uploadButton').addEventListener('click', function () {
+        //     let formData = new FormData();
+        //     formData.append("files", document.getElementById('fileUpload').files[0]);
+        //     formData.append("returnSourceDocuments", true);
+
+        //     async function FileUpload(formData) {
+        //         const response = await fetch(
+        //             'http://localhost:3000/api/v1/vector/upsert/f8096bd3-3979-434c-9f8f-efb88e601fc1',
+        //             {
+        //                 method: "POST",
+        //                 body: formData
+        //             }
+        //         );
+        //         const result = await response.json();
+        //         return result;
+        //     }
+
+
+        //     FileUpload(formData).then((response) => {
+        //         console.log(response);
+        //     });
+        // 
+
+        document.getElementById('uploadButton').addEventListener('click', function () {
+            let formData = new FormData();
+            formData.append("files", document.getElementById('fileUpload').files[0])
+            formData.append("temperature", 1)
+
+            async function query(formData) {
+                const response = await fetch(
+                    "http://localhost:3000/api/v1/prediction/f8096bd3-3979-434c-9f8f-efb88e601fc1",
+                    {
+                        method: "POST",
+                        body: formData
+                    }
+                );
+                const result = await response.json();
+                return result;
+            }
+
+            query(formData).then((response) => {
+                console.log(response);
+            });
+        });
+    </script>
+</body>
+
+
+
 <script type="module">
     import Chatbot from 'https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js'
 
     Chatbot.initFull({
-        chatflowid: 'fe443d55-fdde-4c6d-88f6-1c40d14c49e3',
+        chatflowid: 'f8096bd3-3979-434c-9f8f-efb88e601fc1',
+        // chatflowid: 'fe443d55-fdde-4c6d-88f6-1c40d14c49e3',
         apiHost: "http://localhost:3000",
+
         theme: {
             button: {
                 backgroundColor: '#bf2133',
