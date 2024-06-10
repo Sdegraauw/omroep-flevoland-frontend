@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "FLOW_ID": "fe443d55-fdde-4c6d-88f6-1c40d14c49e3",
-        "BASE_URL": "http://localhost:3000"
+        "BASE_URL": "http://localhost:300"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5234"
