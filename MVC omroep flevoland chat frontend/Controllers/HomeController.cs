@@ -16,7 +16,10 @@ namespace MVC_omroep_flevoland_chat_frontend.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            API model = new API(
+                Environment.GetEnvironmentVariable("BASE_URL"),
+                Environment.GetEnvironmentVariable("FLOW_ID"));
+            return View("index",model);
         }
 
         public IActionResult Privacy()
