@@ -8,13 +8,29 @@
     <flowise-fullchatbot></flowise-fullchatbot>
 </div>
 <head>
-    <title>file Searcher.</title>
+    <title>File Searcher</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .status-icon {
+            display: none;
+            font-size: 24px;
+        }
+
+            .status-icon.success {
+                color: green;
+            }
+
+            .status-icon.error {
+                color: red;
+            }
+    </style>
 </head>
 <body>
     <form id="fileUploadForm" method="post" enctype="multipart/form-data">
         <input type="file" id="fileUpload" name="fileUpload" accept=".pdf" />
         <input type="button" id="uploadButton" value="Upload" />
+        <span id="uploadSuccess" class="status-icon success">&#10003;</span>
+        <span id="uploadError" class="status-icon error">&#10007;</span>
     </form>
     <script type="module">
         import Chatbot from 'https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js'
@@ -108,5 +124,4 @@
         });
     </script>
 </body>
-
 
