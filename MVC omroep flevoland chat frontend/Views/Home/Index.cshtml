@@ -32,25 +32,72 @@
         <span id="uploadSuccess" class="status-icon success">&#10003;</span>
         <span id="uploadError" class="status-icon error">&#10007;</span>
     </form>
-    <script type="module">
-        import Chatbot from 'https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js'
+    
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', function () {
+            let fileInput = document.getElementById('fileUpload');
+            let file = fileInput.files[0];
+            if (file) {
+                // console.log("File name:", file.name);
+                // console.log("File size:", file.size);
+                // console.log("File type:", file.type);
+
+                let reader = new FileReader();
+                // reader.onload = function (e) {
+                //     console.log("File content:", e.target.result);
+                // };
+                reader.readAsText(file);
+
+
+                let formData = new FormData();
+                formData.append("files", file);
+                formData.append("returnSourceDocuments", true);
+
+                async function FileUpload(formData) {
+                    const response = await fetch(
+                        'http://localhost:3000/api/v1/vector/upsert/' + '@Model.FlowID',
+                        {
+                            method: "POST",
+                            body: formData
+                        }
+                    );
+                    const result = await response.json();
+                    return result;
+                }
+
+                FileUpload(formData).then((response) => {
+                    // console.log(response);
+                    document.getElementById('uploadSuccess').style.display = 'inline';
+                    document.getElementById('uploadError').style.display = 'none';
+                }).catch((error) => {
+                    // console.error('Error uploading file:', error);
+                    document.getElementById('uploadSuccess').style.display = 'none';
+                    document.getElementById('uploadError').style.display = 'inline';
+                });
+            } else {
+                console.error("No file selected.");
+            }
+
+        });
+    </script>
+</body>
+
+<script type="module">
+    import Chatbot from 'https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js';
+    document.addEventListener('DOMContentLoaded', () => {
         let formData = new FormData();
-        formData.append("files", document.getElementById('fileUpload').files[0])
-        formData.append("baseUrl", "http://10.42.0.1:11434")
-        formData.append("modelName", "mxbai-embed-large")
-        formData.append("temperature", 1)
+        formData.append("files", document.getElementById('fileUpload').files[0]);
+        formData.append("temperature", 1);
 
         Chatbot.initFull({
             chatflowid: '@Model.FlowID',
             apiHost: '@Model.BaseUrl',
-            chatflowConfig: {
-                sessionId: "123",
-                returnSourceDocuments: true
-            },
+            body: formData,
             theme: {
                 button: {
                     backgroundColor: '#bf2133',
                 },
+            
                 chatWindow: {
                     welcomeMessage: 'hallo, waar kan ik je mee helpen?',
                     backgroundColor: 'floralWhite',
@@ -75,53 +122,8 @@
                         sendButtonColor: '#bf2133',
                     }
                 }
+                
             }
-        })
-    </script>
-    <script>
-        document.getElementById('uploadButton').addEventListener('click', function () {
-
-            let formData = new FormData();
-            formData.append("files", document.getElementById('fileUpload').files[0])
-            formData.append("sessionId", "123")
-
-            async function uploadFormData(formData) {
-                const response = await fetch(
-                    'http://localhost:3000/api/v1/vector/upsert/' + '@Model.FlowID',
-                    {
-                        method: "POST",
-                        body: formData,
-                        sessionId: "123"
-                    }
-                );
-                const result = await response.json();
-                return result;
-            }
-
-            async function query(data) {
-                const response = await fetch(
-                    "http://localhost:3000/api/v1/prediction/" + '@Model.FlowID',
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(data)
-                    }
-                );
-                const result = await response.json();
-                return result;
-            }
-
-            uploadFormData(formData).then(() => query({ "question": "Kan je een beknopte samenvating geven van het document?" })).then((response) => {
-                console.log(response);
-            });
-
-            // uploadFormData(formData).then((response) => {
-            //     console.log(response);
-            // });
-
         });
-    </script>
-</body>
-
+    });
+</script>
