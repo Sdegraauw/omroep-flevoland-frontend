@@ -5,11 +5,11 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "FLOW_ID": "f8096bd3-3979-434c-9f8f-efb88e601fc1",
-        "BASE_URL": "http://localhost:3000"
+        "FLOW_ID": "838cc847-16c0-4a13-938c-99b3c863f3d9",
+        "BASE_URL": "http://145.220.74.201:3000"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5234"
+      "applicationUrl": "http://145.220.74.201:5234"
     },
     "https": {
       "commandName": "Project",
