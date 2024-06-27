@@ -10,7 +10,7 @@ Flowise is a low code tool that can be installed through the [Node.jsx64 package
 
 To install Ollama with the right moduals you can follow thise steps:
 1. [Download Ollama](https://ollama.com/download) and run it once, it should open a powershell or Command promt window.
-2. once you have the powershell or Command promt window you can check [http://localhost:11434/][http://localhost:11434/] and it should say "Ollama is running". if you don't see this Ollama isn't running and can be started by looking for Ollama on your system.
+2. once you have the powershell or Command promt window you can check [http://localhost:11434/](http://localhost:11434/) and it should say "Ollama is running". if you don't see this Ollama isn't running and can be started by looking for Ollama on your system.
 3. if Ollama is running use the next two commands in the Powershell or Command Promt window to download the necessary Moduals 
 - `ollama pull llama3`
 - `ollama pull mxbai-embed-large`
